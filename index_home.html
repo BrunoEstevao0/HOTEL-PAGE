@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Restaurant - Ahmedabad</title> <style>
+        /* --- MUDANÇA --- Importa as fontes 'Forum' (títulos) e 'DM Sans' (texto) */
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Forum&display=swap');
+        
+        /* font-family: 'Forum', serif;      -> Para Títulos
+           font-family: 'DM Sans', sans-serif; -> Para Texto
+        */
+
+        /* --- MUDANÇA --- Fonte base agora é 'DM Sans' */
+        body {
+            font-family: 'DM Sans', sans-serif; /* Fonte nova */
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333; /* Cor do texto mais escura para melhor contraste */
+            
+            /* --- NOVO --- Espaçamento entre linhas (melhora leitura) */
+            line-height: 1.6; 
+            scroll-behavior: smooth; /* Note: JS will override this for more control */
+        }
+
+        /* Estilo do Cabeçalho (topo do site) */
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            /* --- NEW --- Make header sticky */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* --- MUDANÇA --- Título principal com a fonte 'Forum' */
+        h1 {
+            font-family: 'Forum', serif; /* Fonte nova */
+            margin-top: 0;
+            font-size: 3em; /* Um pouco maior */
+            font-weight: 400; /* 'Forum' só tem peso 400 */
+        }
+
+        /* --- MUDANÇA --- Links do menu com a fonte 'DM Sans' */
+        nav a {
+            font-family: 'DM Sans', sans-serif; /* Fonte nova */
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 700; /* Mais peso */
+            font-size: 1em; /* Tamanho padrão */
+            letter-spacing: 0.5px; /* Espaço leve entre letras */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        /* Efeito Hover (ao passar o mouse) */
+        nav a:hover {
+            color: #d9a404; 
+            transform: scale(1.1);
+        }
+
+        /* --- NEW --- Active link style (for JS) */
+        nav a.active {
+            color: #d9a404; 
+        }
+
+        /* Estilo do "container" principal que centraliza o conteúdo */
+        main {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        /* Estilo padrão para todas as seções */
+        section {
+            background-color: #ffffff;
+            padding: 25px; /* Mais preenchimento */
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            
+            /* --- MODIFIED --- Prepared for JS animation */
+            opacity: 0; /* Start invisible */
+            scroll-margin-top: 100px; /* Offset for sticky header */
+        }
+        
+        /* --- NEW --- Class added by JS to trigger animation */
+        section.is-visible {
+            animation: fadeIn 0.8s ease-out forwards;
+            /* 'forwards' keeps the final state of the animation */
+        }
+
+        /* --- MUDANÇA --- Título da seção com a fonte 'Forum' */
+        h2 {
+            font-family: 'Forum', serif; /* Fonte nova */
+            font-size: 2.5em; /* Maior */
+            font-weight: 400; /* 'Forum' só tem peso 400 */
+            color: #d9a404;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-top: 0; /* Remove margem de cima */
+        }
+        
+        /* --- NOVO --- Regra para parágrafos (melhora leitura) */
+        p {
+            font-size: 1.1rem; /* Tamanho de fonte maior */
+            line-height: 1.7; /* Espaçamento de linha maior */
+            margin-bottom: 15px; /* Espaço abaixo de cada parágrafo */
+        }
+
+        /* Estilo para a lista do menu */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Item da lista do menu */
+        li {
+            padding: 15px 10px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+        
+        /* Efeito hover no item do menu */
+        li:hover {
+            background-color: #eee79e18;
+        }
+
+        /* Estilo para o Rodapé (fim do site) */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            color: #aaa;
+            margin-top: 30px;
+        }
+
+        /* Estilo para o nome do prato no menu */
+        .nome-prato {
+            font-weight: 700; /* Mais peso */
+            font-size: 1.2em; /* Um pouco maior */
+            color: #222; /* Cor escura */
+        }
+        
+        /* Imagens */
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        /* Efeito hover (zoom) na imagem */
+        img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Animação de Fade-in (Used by JS) */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+    </head>
+<body>
+
+    <header>
+        <h1>Grilli Ahmedabad</h1>
+        <nav>
+            <a href="#about">About Us</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section id="bem-vindo"> <h2>Welcome to our restaurant!</h2>
+            <p>For the love of delicious food. Come with your family and feel the joy of mouth-watering food. This is our home in Ahmedabad, serving the best flavors of Gujarat.</p>
+            
+            <img src="foto6.avif" alt="Table with various Indian spices"> </section>
+
+        <section id="sobre"> <h2>Our Story</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque leo nec massa vehicula, a tincidunt turpis bibendum. Integer vitae fringilla enim. (This is where you write your restaurant's story).</p>
+            
+            <img src="image.avif" alt="Photo of the elegant restaurant interior"> </section>
+
+        <section id="menu">
+            <h2>Our Delicious Menu</h2>
+            
+            <img src="foto1.avif" alt="Complete Gujarati Thali dish"> <h3>Indian Dishes (Starters)</h3>
+            <ul>
+                <li>
+                    <span class="nome-prato">Paneer Tikka</span><br>
+                    Marinated and grilled paneer cheese cubes. - ₹300 </li>
+                <li>
+                    <span class="nome-prato">Vegetable Samosa</span><br>
+                    Fried pastry stuffed with potatoes and peas. - ₹150 </li>
+            </ul>
+
+            <h3>Main Courses (Curries)</h3>
+            <ul>
+                <li>
+                    <span class="nome-prato">Gujarati Thali</span><br>
+                    A complete platter with various curries, bread, rice, and dessert. - ₹450 </li>
+                <li>
+                    <span class="nome-prato">Palak Paneer</span><br>
+                    Paneer cheese in a creamy spinach sauce. - ₹350 </li>
+                <li>
+                    <span class="nome-prato">Dal Makhani</span><br>
+                    Black lentils slow-cooked with butter and cream. - ₹320 </li>
+            </ul>
+        </section>
+
+        <section id="contato"> <h2>Contact & Reservations</h2>
+            <p>Call us to make your reservation!</p>
+            
+            <p><strong>Phone:</strong> +91 98 1234 5678</p>
+            <p><strong>Email:</strong> booking@grilliahmedabad.com</p>
+            <p><strong>Address:</strong> Nr. IIM, Vastrapur, Ahmedabad, Gujarat 380015, IN</p>
+            <p><strong>Hours:</strong> 11:00 am - 11:00 pm (Every day)</p> </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Grilli Ahmedabad. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        // Wait for the DOM to be fully loaded before running scripts
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- FEATURE 1: Smooth Scrolling ---
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevent the default instant jump
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- FEATURE 2 & 3: Active Nav & Fade-in on Scroll ---
+            
+            const sections = document.querySelectorAll('section');
+            const navLinksMap = new Map();
+            document.querySelectorAll('nav a').forEach(link => {
+                navLinksMap.set(link.getAttribute('href'), link);
+            });
+
+            // Observer for fading in sections as they appear
+            const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add the 'is-visible' class to trigger the CSS animation
+                        entry.target.classList.add('is-visible');
+                        // Stop observing this element once it's visible
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null, // relative to the viewport
+                threshold: 0.1 // trigger when 10% of the element is visible
+            });
+
+            // Observer for highlighting the active navigation link
+            const activeNavObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        // Remove 'active' from all links
+                        navLinksMap.forEach(link => link.classList.remove('active'));
+                        
+                        // Add 'active' to the corresponding link
+                        const activeLink = navLinksMap.get('#' + id);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, {
+                root: null,
+                // Trigger when the section is 50% in view
+                // This is a good threshold for "which section am I in?"
+                threshold: 0.5 
+            });
+
+            // Observe all sections for both observers
+            sections.forEach(section => {
+                fadeInObserver.observe(section);
+                activeNavObserver.observe(section);
+            });
+
+        });
+    </script>
+
+</body>
+</html>
